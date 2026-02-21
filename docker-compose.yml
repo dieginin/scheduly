@@ -37,8 +37,19 @@ services:
       db:
         condition: service_healthy
 
+  frontend:
+    image: dieginin/scheduly-frontend
+    container_name: scheduly-frontend
+    restart: always
+
+    environment:
+      VITE_SCHEDULY_API_URL: ${VITE_SCHEDULY_API_URL}
+
+    depends_on:
+      - backend
+
     ports:
-      - ${PORT}:${PORT}
+      - 80:80
 
 volumes:
   database:
