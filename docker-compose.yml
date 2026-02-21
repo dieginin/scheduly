@@ -23,8 +23,15 @@ services:
     container_name: scheduly-backend
     restart: always
 
-    env_file:
-      - .env
+    environment:
+      NODE_ENV: ${NODE_ENV}
+      DB_HOST: ${DB_HOST}
+      DB_NAME: ${DB_NAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_PORT: ${DB_PORT}
+      DB_USERNAME: ${DB_USERNAME}
+      JWT_SECRET: ${JWT_SECRET}
+      PORT: ${PORT}
 
     depends_on:
       db:
