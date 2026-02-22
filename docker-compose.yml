@@ -38,6 +38,18 @@ services:
       db:
         condition: service_healthy
 
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "node",
+          "-e",
+          "require('net').connect(process.env.PORT,'127.0.0.1').on('connect',()=>process.exit(0)).on('error',()=>process.exit(1))",
+        ]
+      interval: 1s
+      timeout: 5s
+      retries: 5
+
     networks:
       - default
       - proxy
@@ -51,7 +63,8 @@ services:
       VITE_SCHEDULY_API_URL: ${VITE_SCHEDULY_API_URL}
 
     depends_on:
-      - backend
+      backend:
+        condition: service_healthy
 
     networks:
       - default
