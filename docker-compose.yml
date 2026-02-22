@@ -37,6 +37,10 @@ services:
       db:
         condition: service_healthy
 
+    networks:
+      - default
+      - proxy
+
   frontend:
     image: dieginin/scheduly-frontend
     container_name: scheduly-frontend
@@ -48,8 +52,13 @@ services:
     depends_on:
       - backend
 
-    ports:
-      - 80:80
+    networks:
+      - default
+      - proxy
 
 volumes:
   database:
+
+networks:
+  proxy:
+    external: true
